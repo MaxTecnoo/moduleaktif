@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Success Animation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@900&display=swap');
+
+  body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+  }
+
+  .container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .letter {
+    font-size: 2.5em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    color: #4CAF50;
+    opacity: 0;
+    animation: showLetter 1s forwards, hideLetter 1s 2s forwards;
+    animation-delay: var(--delay);
+  }
+
+  .module-text {
+    font-family: 'Lobster', cursive;
+    font-size: 2em;
+    font-weight: bold;
+    color: #ff6347;
+    margin-bottom: 20px;
+    opacity: 0;
+    text-shadow: 2px 2px 4px #000000;
+    animation: fadeInModuleText 1s 6s forwards, textGlow 1s 7s infinite alternate;
+  }
+
+  .final-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #4CAF50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: finalCircleGrow 1s 3s forwards;
+  }
+
+  .checkmark {
+    font-size: 2em;
+    color: white;
+    opacity: 0;
+    animation: showCheckmark 1s 4s forwards;
+  }
+
+  @keyframes showLetter {
+    0% {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes hideLetter {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+  }
+
+  @keyframes fadeInModuleText {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes textGlow {
+    0% {
+      text-shadow: 0 0 10px #ff6347, 0 0 20px #ff6347, 0 0 30px #ff6347, 0 0 40px #ff6347, 0 0 50px #ff6347;
+    }
+    100% {
+      text-shadow: 0 0 20px #ff6347, 0 0 30px #ff6347, 0 0 40px #ff6347, 0 0 50px #ff6347, 0 0 60px #ff6347;
+    }
+  }
+
+  @keyframes finalCircleGrow {
+    0% {
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+    100% {
+      width: 60px;
+      height: 60px;
+      opacity: 1;
+    }
+  }
+
+  @keyframes showCheckmark {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .final-text {
+    font-size: 2em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    margin-top: 20px;
+    opacity: 0;
+    animation: showFinalText 1s 2s forwards, changeColor 3s infinite;
+  }
+
+  @keyframes showFinalText {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes changeColor {
+    0% {
+      color: red;
+    }
+    14% {
+      color: orange;
+    }
+    28% {
+      color: yellow;
+    }
+    42% {
+      color: green;
+    }
+    57% {
+      color: blue;
+    }
+    71% {
+      color: indigo;
+    }
+    85% {
+      color: violet;
+    }
+    100% {
+      color: red;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="module-text">Module By Max Tecno Thanks</div>
+  <div class="container" id="text-container"></div>
+  <div class="final-text" id="final-text">MODULE TELAH AKTIF</div>
+  <div class="final-circle" id="final-circle">
+    <div class="checkmark">&#10003;</div>
+  </div>
+
+  <script>
+    window.onload = function() {
+      const text = "MODULE TELAH AKTIF";
+      const textContainer = document.getElementById("text-container");
+      const finalCircle = document.getElementById("final-circle");
+      const finalText = document.getElementById("final-text");
+
+      textContainer.innerHTML = "";
+      finalCircle.style.opacity = 0;
+      finalText.style.opacity = 0;
+
+      text.split("").forEach((char, index) => {
+        const letter = document.createElement("div");
+        letter.classList.add("letter");
+        letter.style.setProperty('--delay', `${index * 0.1}s`);
+        letter.textContent = char;
+        textContainer.appendChild(letter);
+      });
+
+      setTimeout(() => {
+        finalText.style.animation = "showFinalText 1s forwards, changeColor 3s infinite";
+      }, 2000);
+
+      setTimeout(() => {
+        finalCircle.style.animation = "finalCircleGrow 1s forwards";
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
